@@ -15,7 +15,7 @@ set interfaces ethernet eth1 description DMZ
 set interfaces ethernet eth2 description LAN
 delete interfaces ethernet eth0 address dhcp
 set interfaces ethernet eth0 address 10.0.17.125/24
-set interfaces ethernet eth1 address 172.16.50.2/29
+set interfaces ethernet eth1 address 172.16.50.2/24
 set interfaces ethernet eth2 address 172.16.150.2/24
 commit
 save

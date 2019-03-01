@@ -4,7 +4,7 @@ useradd -G wheel j
 
 ##Setting IP
 echo "IPADDR=172.16.50.3" >> /etc/sysconfig/network-scripts/ifcfg-ens192
-echo "PREFIX=29" >> /etc/sysconfig/network-scripts/ifcfg-ens192
+echo "PREFIX=24" >> /etc/sysconfig/network-scripts/ifcfg-ens192
 echo "GATEWAY=172.16.50.2" >> /etc/sysconfig/network-scripts/ifcfg-ens192
 echo "DNS1=172.16.50.2" >> /etc/sysconfig/network-scripts/ifcfg-ens192
 systemctl restart network.service
