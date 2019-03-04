@@ -4,7 +4,7 @@ useradd -G wheel j
 
 ##Setting IP
 echo "IPADDR=172.16.50.3" >> /etc/sysconfig/network-scripts/ifcfg-ens192
-echo "PREFIX=24" >> /etc/sysconfig/network-scripts/ifcfg-ens192
+echo "PREFIX=29" >> /etc/sysconfig/network-scripts/ifcfg-ens192
 echo "GATEWAY=172.16.50.2" >> /etc/sysconfig/network-scripts/ifcfg-ens192
 echo "DNS1=172.16.50.2" >> /etc/sysconfig/network-scripts/ifcfg-ens192
 systemctl restart network.service
@@ -14,7 +14,8 @@ firewall-cmd --add-port 80/tcp --permanent
 firewall-cmd --reload
 
 ## Setting up logging
-echo user.notice @172.150.150.7 > /etc/rsyslog.d/sec350.sec
+echo user.notice @172.16.150.7 > /etc/rsyslog.d/sec350.sec
+echo user.authpriv* @172.16.150.7 >> /etc/syslog.d/sec350.sec
 systemctl restart rsyslog
 
 

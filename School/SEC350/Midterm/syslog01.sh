@@ -16,16 +16,7 @@ firewall-cmd --reload
 ## Setting up logging
 
 
-cat /etc/rsyslog.d/03-sec350.conf << EOF
-module(load="imudp")
-input(type="imudp" port="514" ruleset="RemoteDevice")
-template(name="DynFile" type="string"
-    string="/var/log/remote-syslog/%HOSTNAME%/%$YEAR%.%$MONTH%.%$DAY%.%PROGRAMNAME%.log"
-)
-ruleset(name="RemoteDevice"){
-    action(type="omfile" dynaFile="DynFile")
-}
-EOF
-
+wget -c -P /etc/rsyslog.d/ http://10.0.17.100/sec350-SP19/03-sec350.conf
+systemctl restart rsyslog
 
 echo "Remember to set a password for j"
