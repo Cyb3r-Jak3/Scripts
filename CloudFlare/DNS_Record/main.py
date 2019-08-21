@@ -20,14 +20,59 @@ def get_zone():
 
 def create_dns_record(zone):
     record = {}
-    choice = input("Please enter the type of record that you are trying to create:\n(Currently support are A, SRV, SSHFP, CAA)\n").lower()
+    choice = input("Please enter the type of record that you are trying to create:\n(Currently support are A, AAAA, CNAME, MX, LOC, SPF, TXT, SRV, SSHFP, CAA)\n").lower()
     if choice == "a":
-        name = input("Please enter the URL:\n")
-        dest = input("Please enter the destination IP address\n")
         record["type"] = "A"
-        record["name"] = name
-        record["content"] = dest
+        record["name"] = input("Please enter the URL:\n")
+        record["content"] = input("Please enter the destination IP address:\n")
         record["proxied"] = True
+
+    if choice == "aaaa":
+        record['type'] = "AAAA"
+        record["name"] = input("Please enter the URL:\n")
+        record["content"] = input("Please enter the destination IP address:\n")
+        record["proxied"] = True
+
+    if choice == "cname":
+        record['type'] = "CNAME"
+        record['name'] = input("Please enter the URL:\n")
+        record["content"] = input("Please enter the destination URL:\n")
+        record["proxied"] = True
+
+    if choice == "mx":
+        record['type'] = "MX"
+        record['name'] = input("Please enter the domain name:\n")
+        record['content'] = input("Please enter the mail server:\n")
+        record['priority'] = int(input("Please enter the priority:\n"))
+
+    if choice == "loc": #I severally question why this is a thing
+        data = {}
+        record["type"] = "LOC"
+        record["name"] = input("Please input the name:\n")
+        data['lat_degrees'] = int(input("Please enter degrees latitude:\n"))
+        data['lat_minutes'] = int(input("Please enter minutes latitude:\n"))
+        data['lat_seconds'] = int(input("Please enter seconds latitude:\n"))
+        data['long_degrees'] = int(input("Please enter degrees longitude:\n"))
+        data['long_minutes'] = int(input("Please enter minutes longitude:\n"))
+        data['long_seconds'] = int(input("Please enter seconds longitude:\n"))
+        data['lat_direction'] = input("Please enter N for North or S for South:\n")
+        data['long_direction'] = input("Please enter E for East or W for West:\n")
+        data['altitude'] = int(input("Please enter the altitude in meters:\n"))
+        data['size'] = int(input("Please enter the size in meters:\n"))
+        data['precision_horz'] = float(input("Please enter the horizontal precision in meters:\n"))
+        data['precision_vert'] = float(input("Please enter the virtical precision in meters:\n"))
+        record['data'] = data
+
+    if choice == "spf":
+        record["type"] = "SFP"
+        record["name"] = input("Please enter the domain name:\n")
+        record["content"] = input("Please enter the SPF content:\n")
+
+    if choice == "txt":
+        record['type'] = "TXT"
+        record["name"] = input("Please enter the name of the TXT record:\n")
+        record["content"] = input("Please enter the content of the TXT record:\n")
+
 
     if choice == "srv":
         data = {}
@@ -79,5 +124,4 @@ except AttributeError:
 except SyntaxError:
     headers = get_auth_headers()
     zone = get_zone()
-print(headers)
 create_dns_record(zone)
