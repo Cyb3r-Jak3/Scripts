@@ -1,3 +1,4 @@
-auth_key = ""
-auth_email = ""
-zone_id = ""
+auth_key =
+authorization = "Bearer "
+auth_email =
+zone_id =

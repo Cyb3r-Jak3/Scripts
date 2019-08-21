@@ -1,13 +1,18 @@
 import requests
-#from os import system, name
 
 base_url = "https://api.cloudflare.com/client/v4/zones/"
 
 
 def get_auth_headers():
-    key = input("Please enter your API Key:\n")
-    email = input("Please enter the email address assicated with the API key:\n")
-    return({"X-Auth-Email": email, 'X-Auth-Key': key, "Content-Type": "application/json"})
+    choice = input("Are you using your global API key or an API token:\n[1] Global Key\n[2] API Token\n>")
+    if choice == "1":
+        key = input("Please enter your API Key:\n")
+        email = input("Please enter the email address associated with the API key:\n")
+        return({"X-Auth-Email": email, 'X-Auth-Key': key, "Content-Type": "application/json"})
+    if choice == "2":
+        key = input("Please enter the API Token (without Bearer):\n")
+        email = input("Please enter the email address associated with the API key:\n")
+        return {'Authorization': "Bearer " + key, "X-Auth-Email": email, "Content-Type": "application/json"}
 
 def get_zone():
     z = input("Please enter the Zone ID that you want to edit:\n")
@@ -46,7 +51,7 @@ def create_dns_record(zone):
     if choice == "caa":
         data = {}
         record['name'] = input("Please input the name:\n")
-        data['tag'] = input("Please enter 'issue', 'issuewild' or 'iodef':\n)
+        data['tag'] = input("Please enter 'issue', 'issuewild' or 'iodef':\n")
         data['value'] = input("Please enter the domain of the certificate authority or the email to report to:\n")
         data['flags'] = 0
         record['type'] = "CAA"
@@ -68,8 +73,11 @@ try:
     import info
     headers = {'X-Auth-Key': info.auth_key, "X-Auth-Email": info.auth_email, "Content-Type": "application/json"}
     zone = info.zone_id
+except AttributeError:
+    headers = {'Authorization': info.authorization, "X-Auth-Email": info.auth_email, "Content-Type": "application/json"}
+    zone = info.zone_id
 except SyntaxError:
     headers = get_auth_headers()
     zone = get_zone()
-
+print(headers)
 create_dns_record(zone)
