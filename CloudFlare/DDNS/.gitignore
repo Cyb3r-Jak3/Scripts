@@ -194,3 +194,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+#Prevent Config Push
+config.conf
