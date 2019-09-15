@@ -39,6 +39,9 @@ curl https://gitlab.com/jwhite1st/Scripts/raw/master/Linux/fleet/fleet.service -
 #Changes the BAD string the the randomstring
 sed -i -e "s/BADSTRING\b/$random_string/g" /etc/systemd/system/fleet.service
 
+#Changes database password
+sed -i -e "s/toor\b/$password_match/g" /etc/systemd/system/fleet.service
+
 #Starts and enables fleet
 systemctl daemon-reload
 systemctl start fleet.service
