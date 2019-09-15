@@ -6,7 +6,7 @@ After=network.target
 ExecStart=/usr/bin/osqueryd \
   --enroll_secret_path=/var/osquery/enroll_secret \
   --tls_server_certs=/var/osquery/server.pem \
-  --tls_hostname=184.171.152.208:8080 \
+  --tls_hostname=oldip \
   --host_identifier==uuid \
   --enroll_tls_endpoint=/api/v1/osquery/enroll \
   --config_plugin=tls \
