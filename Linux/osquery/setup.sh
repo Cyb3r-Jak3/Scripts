@@ -1,5 +1,6 @@
 curl -L https://pkg.osquery.io/rpm/GPG -o /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery
-yum install -y yum-utils                                                                                                                                                                         yum-config-manager --add-repo https://pkg.osquery.io/rpm/osquery-s3-rpm.repo
+yum install -y yum-utils
+yum-config-manager --add-repo https://pkg.osquery.io/rpm/osquery-s3-rpm.repo
 yum-config-manager --enable osquery-s3-rpm
 yum install -y osquery
 cat <<EOF > /etc/systemd/system/fleetconnect.service
