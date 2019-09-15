@@ -14,9 +14,9 @@ yum install -y mysql-server
 systemctl start mysqld
 #Sets up mysql
 password_match=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
-mysql -u root -p$password_match "ALTER USER 'root'@'localhost' IDENTIFIED BY '$password_match';"
-mysql -u root -p$password_match "flush privileges;"
-mysql -u root -p$password_match "CREATE DATABASE kolide;"
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$password_match';" | mysql -u root -p$password_match 
+echo "flush privileges;" | mysql -u root -p$password_match
+echo "CREATE DATABASE kolide;" | mysql -u root -p$password_match 
 
 #Installs redis
 rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
