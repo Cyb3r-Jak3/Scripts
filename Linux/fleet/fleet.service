@@ -1,0 +1,19 @@
+[Unit]
+Description=Kolide Fleet
+After=network.target
+
+[Service]
+LimitNOFILE=8192
+ExecStart=/usr/local/bin/fleet serve \
+  --mysql_address=127.0.0.1:3306 \
+  --mysql_database=kolide \
+  --mysql_username=root \
+  --mysql_password=toor \
+  --redis_address=127.0.0.1:6379 \
+  --server_cert=/tmp/server.cert \
+  --server_key=/tmp/server.key \
+  --auth_jwt_key=BADSTRING \
+  --logging_json
+
+[Install]
+WantedBy=multi-user.target
