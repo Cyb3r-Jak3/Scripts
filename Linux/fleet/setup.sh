@@ -12,7 +12,7 @@ rpm -i mysql57-community-release-el7.rpm
 yum update -y
 yum install -y mysql-server
 systemctl start mysqld
-random_password=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 20)
+random_password=$(strings -n 1 < /dev/urandom | tr -d '[:space:]' | head -c20)
 #Sets up mysql
 password_match=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$random_password';" | mysql -u root -p$password_match  --connect-expired-password
