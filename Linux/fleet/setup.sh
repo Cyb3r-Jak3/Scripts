@@ -1,18 +1,18 @@
 #!/bin/bash
-yum install -y wget unzip
+yum install -y wget unzip > /dev/null
 
 #Gets and copies the fleet binary
-wget https://github.com/kolide/fleet/releases/latest/download/fleet.zip
-unzip fleet.zip 'linux/*' -d fleet
-cp fleet/linux/fleet* /usr/bin/
+wget https://github.com/kolide/fleet/releases/latest/download/fleet.zip > /dev/null
+unzip fleet.zip 'linux/*' -d fleet > /dev/null
+cp fleet/linux/fleet* /usr/bin/ > /dev/null
 
 # Gets an installs mysql
-wget https://repo.mysql.com/mysql57-community-release-el7.rpm
-rpm -i mysql57-community-release-el7.rpm
-yum update -y
-yum install -y mysql-server
-systemctl start mysqld
-random_password=$(strings -n 1 < /dev/urandom | tr -d '[:space:]' | head -c20)
+wget https://repo.mysql.com/mysql57-community-release-el7.rpm > /dev/null
+rpm -i mysql57-community-release-el7.rpm > /dev/null
+yum update -y > /dev/null
+yum install -y mysql-server > /dev/null
+systemctl start mysqld 
+random_password=$(strings -n 1 < /dev/urandom | tr -d '[:space:] &' | head -c30)
 #Sets up mysql
 password_match=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$random_password';" | mysql -u root -p$password_match  --connect-expired-password
@@ -20,8 +20,8 @@ echo "flush privileges;" | mysql -u root -p$random_password
 echo "CREATE DATABASE kolide;" | mysql -u root -p$random_password
 
 #Installs redis
-rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-yum install -y redis
+rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm > /dev/null
+yum install -y redis > /dev/null
 systemctl enable redis
 systemctl start redis
 
