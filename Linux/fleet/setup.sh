@@ -12,14 +12,11 @@ rpm -i mysql57-community-release-el7.rpm > /dev/null
 yum update -y > /dev/null
 yum install -y mysql-server > /dev/null
 systemctl start mysqld 
-random_password=$(strings -n 1 < /dev/urandom | tr -d "[:space:] [:xdigit:] & \ / [] {} () \` ' \" ;  "| head -c30)
-echo "$random_password"
+random_password=$(strings -n 1 < /dev/urandom | tr -d "[:space:] [:xdigit:] & \ / [] {} () | \` ' \" ;  "| head -c30)
 #Sets up mysql
 temp_pass=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
-echo "$temp_pass"
+echo "mysqladmin -u root --password=${temp_pass} password $random_password"
 mysqladmin -u root --password=${temp_pass} password $random_password
-#echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$random_password';" | mysql -u root -p$password_match  --connect-expired-password
-#echo "flush privileges;" | mysql -u root -p$random_password
 echo "CREATE DATABASE kolide;" | mysql -u root -p$random_password
 
 #Installs redis
