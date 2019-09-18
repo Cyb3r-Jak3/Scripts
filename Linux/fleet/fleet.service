@@ -14,6 +14,5 @@ ExecStart=/usr/bin/fleet serve \
   --server_key=/tmp/server.key \
   --auth_jwt_key=BADSTRING \
   --logging_json
-
 [Install]
 WantedBy=multi-user.target
