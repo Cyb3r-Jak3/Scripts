@@ -1,5 +1,5 @@
 ## Fail2Ban + Nginx
-##### [Blog Post](https://blog.jwhite.network/Fail2Ban-CloudFlare) to learn more
+##### [Blog Post](https://blog.cyberjake.xyz/Fail2Ban-CloudFlare) to learn more
 
 ### How to use
 1. Copy the filter file to /etc/fail2ban/filter.d/
